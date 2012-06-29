@@ -1,21 +1,69 @@
 var fj = {
-    developing : true,
-    init: function() {
+    developing:true,
+    developTip:[],
+    init:function() {
         
     }
 }
 
 fj.dom = {
-    lastSibling:function(node){},
-    firstSibling:function(node){},
-    previousSibling:function(node){},
-    nextSibling:function(node){},
+    last:function(node){
+        var tempNode = node.parentNode.lastChild
+        if(!!tempNode && tempNode.nodeType !== 1){
+            tempNode = this.previous(tempNode)
+        }
+        return tempNode
+    },
+    first:function(node){
+        var tempNode = node.parentNode.firstChild
+        if(!!tempNode && tempNode.nodeType !== 1){
+            tempNode = this.next(tempNode)
+        }
+        return tempNode
+    },
+    previous:function(node){
+        var tempNode = node.previousSibling
+        while( !!tempNode && tempNode.nodeType !== 1){
+            tempNode = tempNode.previousSibling
+        } 
+        return tempNode
+    },
+    next:function(node){
+        var tempNode = node.nextSibling
+        while( !!tempNode && tempNode.nodeType !== 1){
+            tempNode = tempNode.nextSibling
+        } 
+        return tempNode
+    },
 
-    getText:function(node){},
-    setText:function(node,text){},
+    getText:function(node){
+        if( !node.hasChildNodes() ) return false
+        var tempNode = node.firstChild
+        while( !!tempNode && ( tempNode.nodeType != 3 || /^\s+$/.test(tempNode.nodeValue) )){
+            tempNode = tempNode.nextSibling
+        }
+        return tempNode.nodeValue || false
+    },
+    setText:function(node,text){
+        if( !node.hasChildNodes() ) return false
+        var tempNode = node.firstChild
+        while( !!tempNode && ( tempNode.nodeType != 3 || /^\s+$/.test(tempNode.nodeValue) )){
+            tempNode = tempNode.nextSibling
+        }
+        if( !!tempNode ) return tempNode.nodeValue = text
+        else return false
+    },
     
-    createTextElement:function(tagName,text){},
-    createLink:function(href, text){}
+    createTextElement:function(elementName,text){
+        var element = document.createElement(elementName.toLowerCase())
+        element.appendChild(document.createTextNode(text))
+        return element
+    },
+    createLink:function(href, text){
+        var link = this.createTextElement('a',text)
+        link.setAttribute('href',href)
+        return link
+    }
 }
 fj.event = {
     getKeyCode:function(e){},
@@ -37,16 +85,12 @@ fj.develop = {
         }
         fj.event.add(window,'error',function(e){
             var event = fj.event.getTarget(e)
-            try{
-                console.log('error: '+event)
-            }catch(){
-                
-            }finally{
-                return
-            }
+            var msg = (new Date()-0) + ': ' + event
+            console.log(msg)
+            fj.developTip.push(msg)
         })
     }
 }
 void function(){
-    fj.init();
+    fj.init()
 }()
