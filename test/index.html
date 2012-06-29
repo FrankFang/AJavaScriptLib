@@ -22,6 +22,17 @@
     	<span id="hello">hello</span>
         <span id="empty"> </span>
     </div>
+    <div id="click">
+    	<div id="parent" style="border:1px solid red; width:250px; height: 250px">parent<div id="child" style="border:1px solid black; width:200px; height: 200px">child</div></div>
+    	
+    </div>
 	<script src="../src/fj.js"></script>
+    <script>
+    var d1 = document.getElementById('parent')
+    fj.event.add(d1,'click',function(){alert(1)})
+    var d2 = document.getElementById('child')
+    fj.event.add(d2,'click',function(){alert(2)})
+    fj.event.add(d2,'click',function(){alert(3)})
+    </script>
 </body>
 </html>

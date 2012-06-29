@@ -68,7 +68,11 @@ fj.event = {
     getTarget:function(e){},
     stopBubble:function(e){},
     preventDefault:function(e){},
-    add:function(node,eventType,fn){}
+    add:function(node,eventType,fn){
+        if(node.addEventListener) node.addEventListener(eventType,fn,false)
+        else if(node.attachEvent) node.attachEvent('on'+eventType,fn)
+        else node['on'+eventType] = fn
+    }
 }
 fj.css = {
     swap:function(node,oldCssClass,newCssClass){
