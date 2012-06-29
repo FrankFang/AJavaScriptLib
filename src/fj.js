@@ -71,10 +71,23 @@ fj.event = {
     add:function(node,eventType,fn){}
 }
 fj.css = {
-    swap:function(node,oldCssClass,newCssClass){},
-    add:function(node,cssClass){},
-    remove:function(node,cssClass){},
-    check:function(node,cssCLass){}
+    swap:function(node,oldCssClass,newCssClass){
+        if( !this.has(node,oldCssClass) || !!this.has(node,newCssClass) ) return false
+        var reg = new RegExp('\\b'+oldCssClass+'\\b')
+        node.className = node.className.replace(reg,newCssClass)
+    },
+    add:function(node,cssClass){
+        if( !!this.has(node,cssClass) ) return true
+        node.className += (' '+cssClass)
+    },
+    remove:function(node,cssClass){
+        var reg = new RegExp('\\b'+cssClass+'\\b');
+		node.className = node.className.replace(reg,"");
+    },
+    has:function(node,cssClass){
+        var reg = new RegExp('\\b'+cssClass+'\\b')
+        return reg.test(node.className)
+    }
 }
 fj.develop = {
     init:function(){
