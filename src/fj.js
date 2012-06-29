@@ -35,7 +35,6 @@ fj.dom = {
         } 
         return tempNode
     },
-
     getText:function(node){
         if( !node.hasChildNodes() ) return false
         var tempNode = node.firstChild
@@ -53,7 +52,6 @@ fj.dom = {
         if( !!tempNode ) return tempNode.nodeValue = text
         else return false
     },
-    
     createTextElement:function(elementName,text){
         var element = document.createElement(elementName.toLowerCase())
         element.appendChild(document.createTextNode(text))
