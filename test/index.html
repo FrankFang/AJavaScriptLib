@@ -29,10 +29,14 @@
 	<script src="../src/fj.js"></script>
     <script>
     var d1 = document.getElementById('parent')
-    fj.event.add(d1,'click',function(){alert(1)})
+    fj.event.add(d1,'click',al)
     var d2 = document.getElementById('child')
-    fj.event.add(d2,'click',function(){alert(2)})
-    fj.event.add(d2,'click',function(){alert(3)})
+    fj.event.add(d2,'click',al)
+    fj.event.add(d2,'click',al)
+    function al(e){
+        alert(fj.event.getTarget(e).id)
+        fj.event.remove(fj.event.getTarget(e),'click',al)
+    }
     </script>
 </body>
 </html>

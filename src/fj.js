@@ -64,14 +64,36 @@ fj.dom = {
     }
 }
 fj.event = {
-    getKeyCode:function(e){},
-    getTarget:function(e){},
-    stopBubble:function(e){},
-    preventDefault:function(e){},
+    getKeyCode:function(e){
+        var key
+        if(window.event) key = window.event.keyCode
+        else key = e.keyCode
+        return key        
+    },
+    getTarget:function(e){
+        var target = window.event?window.event.srcElement:e.target
+        if(!target) return false
+        while(target.nodeType!==1 && target.nodeName.toLowerCase() !== 'body' ) target = target.parentNode
+        return target
+    },
+    stopBubble:function(e){
+        if( e && e.stopPropagation) e.stopPropagation()
+        else if(window.event ) window.event.cancelBubble = true
+    },
+    preventDefault:function(e){
+        if( e && e.preventDefault ) e.preventDefault()
+        else if (window.event ) window.event.returnValue = false;
+    },
     add:function(node,eventType,fn){
         if(node.addEventListener) node.addEventListener(eventType,fn,false)
         else if(node.attachEvent) node.attachEvent('on'+eventType,fn)
         else node['on'+eventType] = fn
+    },
+    //FIXME: IE浏览器中使用add方法可以多次添加同一fn，而在Firefox中只有一次
+    remove:function(node,eventType,fn){
+        if(node.removeEventListener) node.removeEventListener(eventType,fn,false)
+        else if(node.detachEvent) node.detachEvent('on'+eventType,fn)
+        else node['on'+eventType] = false
     }
 }
 fj.css = {
