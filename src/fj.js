@@ -1,8 +1,6 @@
 var fj = {
-    developing:true,
-    developTip:[],
     init:function() {
-        
+        this.develop.init()
     }
 }
 
@@ -82,7 +80,7 @@ fj.event = {
     },
     preventDefault:function(e){
         if( e && e.preventDefault ) e.preventDefault()
-        else if (window.event ) window.event.returnValue = false;
+        else if (window.event ) window.event.returnValue = false
     },
     add:function(node,eventType,fn){
         if(node.addEventListener) node.addEventListener(eventType,fn,false)
@@ -107,8 +105,8 @@ fj.css = {
         node.className += (' '+cssClass)
     },
     remove:function(node,cssClass){
-        var reg = new RegExp('\\b'+cssClass+'\\b');
-		node.className = node.className.replace(reg,"");
+        var reg = new RegExp('\\b'+cssClass+'\\b')
+		node.className = node.className.replace(reg,"")
     },
     has:function(node,cssClass){
         var reg = new RegExp('\\b'+cssClass+'\\b')
@@ -116,14 +114,13 @@ fj.css = {
     }
 }
 fj.develop = {
+    enabled: true,
+    developTip: [],
     init:function(){
-        if(!fj.developing){
-            return
-        }
-        fj.event.add(window,'error',function(e){
-            var event = fj.event.getTarget(e)
-            var msg = (new Date()-0) + ': ' + event
-            console.log(msg)
+        if(!fj.develop.enabled) return
+        fj.event.add(window,'error',function(msg,url,line){
+            var text = (new Date()-0) + ': ' + msg + ' ' + line
+            console && console.log(text)
             fj.developTip.push(msg)
         })
     }
