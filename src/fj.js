@@ -1,7 +1,8 @@
-var fj = {
-    init:function() {
-        this.develop.init()
-    }
+var fj = function(id){
+    return document.getElementById(id)
+}
+fj.init = function() {
+    this.develop.init()
 }
 
 fj.dom = {

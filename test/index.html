@@ -3,8 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Test of Frank's JavaScript Lib</title>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+    <script src="http://code.jquery.com/qunit/git/qunit.js"></script>
 </head>
 <body>
+    <h1 id="qunit-header">QUnit example</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="qunit-fixture">test markup, will be hidden</div>
+    <hr/>
     <div id="main">
     	<ul id="menu" class="menu">
     		<li class="item"><a href="#">1</a></li>
@@ -27,16 +36,6 @@
     	
     </div>
 	<script src="../src/fj.js"></script>
-    <script>
-    var d1 = document.getElementById('parent')
-    fj.event.add(d1,'click',al)
-    var d2 = document.getElementById('child')
-    fj.event.add(d2,'click',al)
-    fj.event.add(d2,'click',al)
-    function al(e){
-        alert(fj.event.getTarget(e).id)
-        fj.event.remove(fj.event.getTarget(e),'click',al)
-    }
-    </script>
+    <script src="unit_test.js"></script>
 </body>
 </html>
