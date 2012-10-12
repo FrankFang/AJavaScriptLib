@@ -3,3 +3,5 @@ test
 add on github.com
 
 test for fetch
+
+test for merge origin/master
