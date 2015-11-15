@@ -7,14 +7,14 @@ fj.init = function() {
 
 fj.dom = (function(){
     return {
-        last:function(node){
+        lastSibling:function(node){//tag
             var tempNode = node.parentNode.lastChild
             if(!!tempNode && tempNode.nodeType !== 1){
                 tempNode = this.previous(tempNode)
             }
             return tempNode
         },
-        first:function(node){
+        firstSibling:function(node){
             var tempNode = node.parentNode.firstChild
             if(!!tempNode && tempNode.nodeType !== 1){
                 tempNode = this.next(tempNode)
@@ -35,7 +35,7 @@ fj.dom = (function(){
             } 
             return tempNode
         },
-        getText:function(node){
+        getChildText:function(node){
             if( !node.hasChildNodes() ) return false
             var tempNode = node.firstChild
             while( !!tempNode && ( tempNode.nodeType != 3 || /^\s+$/.test(tempNode.nodeValue) )){
@@ -43,7 +43,7 @@ fj.dom = (function(){
             }
             return tempNode.nodeValue || false
         },
-        setText:function(node,text){
+        setChildText:function(node,text){
             if( !node.hasChildNodes() ) return false
             var tempNode = node.firstChild
             while( !!tempNode && ( tempNode.nodeType != 3 || /^\s+$/.test(tempNode.nodeValue) )){
