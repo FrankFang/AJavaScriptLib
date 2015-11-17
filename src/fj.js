@@ -49,7 +49,7 @@ fj.dom = (function(){
             while( !!tempNode && ( tempNode.nodeType != 3 || /^\s+$/.test(tempNode.nodeValue) )){
                 tempNode = tempNode.nextSibling
             }
-            if( !!tempNode ) return tempNode.nodeValue = text
+            if( tempNode ) return tempNode.nodeValue = text
             else return false
         },
         createTextElement:function(elementName,text){
@@ -107,7 +107,7 @@ fj.css = (function(){
             node.className = node.className.replace(reg,newCssClass)
         },
         add:function(node,cssClass){
-            if( !!this.has(node,cssClass) ) return true
+            if( this.has(node,cssClass) ) return true
             node.className += (' '+cssClass)
         },
         remove:function(node,cssClass){
